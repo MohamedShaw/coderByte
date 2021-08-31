@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "354253183928",
+    "project_id": "videoswelnes",
+    "storage_bucket": "videoswelnes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354253183928:android:f97fd7822c5f8f61fecd4d",
+        "android_client_info": {
+          "package_name": "com.themovieapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "354253183928-0958nbeemso5f1dqk6k8fsoiqd484l7l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYvx5xpwHMY0ghHzX4fRHbzXnjeAXNLdI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "354253183928-0958nbeemso5f1dqk6k8fsoiqd484l7l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
