@@ -1,7 +1,12 @@
 export {
   default as ProductReducer,
-  filterProduct,
   addProduct,
   addToFavorite,
-  removeFromFavorite
+  removeFromFavorite,
 } from './product.slice';
+
+export {
+  default as FilterReducer,
+  filterProduct,
+  selectCategory,
+} from './filter.clice';

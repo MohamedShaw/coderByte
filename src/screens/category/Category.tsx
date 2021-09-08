@@ -5,7 +5,7 @@ import {View} from 'react-native';
 import {styles} from './styles';
 
 interface Props {}
-export function Home({}: Props) {
+export function Category({}: Props) {
   return (
     <View style={styles.container}>
       <Header title="Clothing" />

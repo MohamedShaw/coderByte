@@ -1,8 +1,9 @@
 import {AppSpinner} from '@src/components';
 import {ProductCard} from '@src/components/ProductCard';
 import {useProducts} from '@src/hooks/useProducts';
+import {productFilters} from '@src/slices/filter.clice';
 import {productSelector} from '@src/slices/product.slice';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {useSelector} from 'react-redux';
 
@@ -10,9 +11,9 @@ export const ProductListHOC = () => {
   const {isLoading} = useProducts();
 
   const data = useSelector(productSelector);
+  const filters = useSelector(productFilters);
 
-  console.log("data", data);
-  
+  const products = filters.filterData.length ? filters.filterData : data;
 
   if (isLoading) {
     return (
@@ -23,9 +24,9 @@ export const ProductListHOC = () => {
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{166} items</Text>
+      <Text style={styles.text}>{products.length} items</Text>
       <FlatList
-        data={data}
+        data={products}
         numColumns={2}
         renderItem={({item}) => <ProductCard data={item} />}
         contentContainerStyle={styles.content}
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
   text: {marginHorizontal: 15, marginVertical: 20, fontWeight: 'bold'},
-  content: {paddingHorizontal: 10},
+  content: {paddingHorizontal: 10, paddingBottom: 70},
   sppiner: {
     marginTop: 80,
   },

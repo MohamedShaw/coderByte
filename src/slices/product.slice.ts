@@ -4,53 +4,66 @@ import { RootState } from '@src/store';
 
 interface ProductSate {
   data: PRODUCT[];
-  filterData: PRODUCT[];
   favorite: object;
-  items_count: number;
+  filterCategory: string;
+
 }
 
 const initialState: ProductSate = {
   data: [],
-  filterData: [],
   favorite: {},
-  items_count: 0,
+
+  filterCategory: 'ALL',
 };
 
 const productSlice = createSlice({
-  name: 'authSlice',
+  name: 'product',
   initialState,
   reducers: {
+    selectCategory(state, { payload }: PayloadAction<string>) {
+      state.filterCategory = payload;
+    },
     addProduct(state, { payload }: PayloadAction<PRODUCT[]>) {
       state.data = payload;
-      state.filterData = payload;
+
     },
-    filterProduct(state, { payload }: PayloadAction<PRODUCT>) {
-      const product = state.data.filter(
-        item => item.category === payload.category,
-      );
-      state.filterData = product;
+    filterProduct(state, { payload }: PayloadAction<string>) {
+      let favorite = null
+      favorite = state.data.filter(item => item.category === payload);
+
+      return {
+        ...state,
+        filterData: favorite,
+        filters: favorite
+      };
     },
     addToFavorite(state, { payload }: PayloadAction<PRODUCT>) {
       const product = payload;
       let favorite = { ...state.favorite };
 
-      state.favorite[product.id] = { product };
-      state.items_count = Object.keys(favorite).length;
+      state.favorite[product.id] = { ...payload };
+
+
     },
 
     removeFromFavorite: (state, { payload }: PayloadAction<number>) => {
       const id = payload;
-      state.items_count -= 1;
 
       delete state.favorite[id];
     },
   },
 });
 
-export const productSelector = (state: RootState) => state.product.filterData;
-export const productFavorive = (state: RootState) => state.product.favorite
-export const favoriteCounter = (state: RootState) => state.product.items_count
+export const productSelector = (state: RootState) => state.product.data;
+export const productFavorive = (state: RootState) => state.product.favorite;
+export const filterByCategory = (state: RootState) =>
+  state.product.filterCategory;
 
 export default productSlice.reducer;
-export const { filterProduct, addProduct, addToFavorite, removeFromFavorite } =
-  productSlice.actions;
+export const {
+  filterProduct,
+  addProduct,
+  addToFavorite,
+  removeFromFavorite,
+  selectCategory,
+} = productSlice.actions;

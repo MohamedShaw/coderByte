@@ -20,6 +20,15 @@ export const BOTTOM_TABS_STATUS_BAR_STYLE: Record<
   [routeNames.profile]: 'light',
 };
 
+function Home() {
+  return <> </>;
+}
+function Favorite() {
+  return <> </>;
+}
+function Profile() {
+  return <> </>;
+}
 export function Tabbar() {
   return (
     <bottomTabs.Navigator
@@ -30,11 +39,14 @@ export function Tabbar() {
       }}
       initialRouteName={routeNames.category}
       tabBar={props => <CustomTabbar {...props} />}>
-      <bottomTabs.Screen name={routeNames.home} component={Screens.Home} />
-      <bottomTabs.Screen name={routeNames.category} component={Screens.Home} />
+      <bottomTabs.Screen name={routeNames.home} component={Home} />
+      <bottomTabs.Screen
+        name={routeNames.category}
+        component={Screens.Category}
+      />
 
-      <bottomTabs.Screen name={routeNames.favorite} component={Screens.Home} />
-      <bottomTabs.Screen name={routeNames.profile} component={Screens.Home} />
+      <bottomTabs.Screen name={routeNames.favorite} component={Favorite} />
+      <bottomTabs.Screen name={routeNames.profile} component={Profile} />
     </bottomTabs.Navigator>
   );
 }

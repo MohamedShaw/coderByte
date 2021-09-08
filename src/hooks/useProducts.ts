@@ -1,7 +1,7 @@
-import {api} from '@src/api';
-import {addProduct} from '@src/slices';
-import {useQuery} from 'react-query';
-import {useDispatch} from 'react-redux';
+import { api } from '@src/api';
+import { addProduct } from '@src/slices';
+import { useQuery } from 'react-query';
+import { useDispatch } from 'react-redux';
 
 export type PRODUCT = {
   category: string;
@@ -9,7 +9,7 @@ export type PRODUCT = {
   id: number;
   image: string;
   price: number;
-  rating: {rate: number; count: number};
+  rating: { rate: number; count: number };
   title: string;
 };
 
@@ -19,12 +19,13 @@ async function getProduct() {
 
 export const useProducts = () => {
   const dispatch = useDispatch();
-  const {data = [], ...rest} = useQuery<unknown, Error, PRODUCT[]>(
+  const { data = [], ...rest } = useQuery<unknown, Error, PRODUCT[]>(
     'PRODUCT',
     getProduct,
   );
   if (data.length) {
     dispatch(addProduct(data));
+    // dispatch(addDataToFilter(data))
   }
   return {
     ...rest,

@@ -5,7 +5,7 @@ import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import {TabbarItem} from './TabbarItem';
 import {colors, SCREEN} from '@src/theme';
 import {useSelector} from 'react-redux';
-import {favoriteCounter} from '@src/slices/product.slice';
+import {productFavorive} from '@src/slices/product.slice';
 
 const MAIN_TABBAR_HEIGHT = 50;
 const TOP_OVERFLOW = 12;
@@ -16,7 +16,9 @@ export function CustomTabbar({
   state,
   navigation,
 }: BottomTabBarProps) {
-  const count = useSelector(favoriteCounter);
+  const favorites = useSelector(productFavorive);
+  const count = Object.values(favorites).length;
+
   const handlePress = React.useCallback(
     ({key, name}: typeof state.routes[0], index: number, activeIndex: number) =>
       () => {
@@ -61,7 +63,7 @@ export function CustomTabbar({
           />
           {count > 0 ? (
             <View style={styles.fav}>
-              <Text style={{fontSize: 10, color: 'white'}}>25</Text>
+              <Text style={{fontSize: 10, color: 'white'}}>{count}</Text>
             </View>
           ) : null}
         </View>
@@ -123,7 +125,7 @@ const styles = StyleSheet.create({
   fav: {
     position: 'absolute',
     top: 5,
-    left: '30%',
+    right: '30%',
     width: 20,
     height: 20,
     backgroundColor: '#E7B944',

@@ -1,6 +1,9 @@
 import {PRODUCT} from '@src/hooks/useProducts';
+import {useStyle} from '@src/hooks/useStyle';
 import {addToFavorite} from '@src/slices';
-import React from 'react';
+import {productFavorive, removeFromFavorite} from '@src/slices/product.slice';
+import {colors} from '@src/theme';
+import React, {useEffect, useState} from 'react';
 import {
   Alert,
   Image,
@@ -9,13 +12,41 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 interface Props {
   data: PRODUCT;
 }
 export const ProductCard = ({data}: Props) => {
-  const {image, title, price} = data;
+  const {image, title, price, id} = data;
+
+  const favorite = useSelector(productFavorive);
+
+  useEffect(() => {
+    const isFound = Object.values(favorite).find(item => item.id === id);
+    if (isFound) {
+      setFavorite(true);
+    }
+  }, []);
+  const [isFavorite, setFavorite] = useState(false);
   const dispatch = useDispatch();
+
+  const backgroundColorStyle = useStyle(() => {
+    return {backgroundColor: isFavorite ? colors.active : 'white'};
+  }, [isFavorite]);
+
+  const tintColorStyle = useStyle(() => {
+    return {tintColor: isFavorite ? 'white' : colors.active};
+  }, [isFavorite]);
+
+  function onToggleFav() {
+    if (isFavorite) {
+      setFavorite(false);
+      dispatch(removeFromFavorite(id));
+    } else {
+      setFavorite(true);
+      dispatch(addToFavorite(data));
+    }
+  }
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -27,13 +58,11 @@ export const ProductCard = ({data}: Props) => {
       </View>
 
       <TouchableOpacity
-        onPress={() => {
-          dispatch(addToFavorite(data));
-        }}
-        style={styles.favorite}>
+        onPress={onToggleFav}
+        style={[styles.favorite, backgroundColorStyle]}>
         <Image
           source={require('@src/assets/favorite.png')}
-          style={styles.favIcon}
+          style={[styles.favIcon, tintColorStyle]}
         />
       </TouchableOpacity>
 
@@ -64,14 +93,14 @@ const styles = StyleSheet.create({
   title: {marginTop: 25, color: '#34283E', fontSize: 14, fontWeight: '400'},
   price: {marginTop: 5, color: '#34283E', fontSize: 17, fontWeight: '700'},
   favorite: {
-    width: 45,
-    height: 45,
+    width: 40,
+    height: 40,
     backgroundColor: 'white',
-    borderRadius: 45,
+    borderRadius: 40,
     zIndex: 100,
     position: 'absolute',
     top: 138,
-    left: 10,
+    right: 10,
     elevation: 2.5,
     alignItems: 'center',
     justifyContent: 'center',

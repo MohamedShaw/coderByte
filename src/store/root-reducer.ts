@@ -1,10 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {combineReducers} from '@reduxjs/toolkit';
-import {ProductReducer} from '@src/slices';
+import {FilterReducer, ProductReducer} from '@src/slices';
 import {PersistConfig, persistReducer} from 'redux-persist';
 
 const reducers = combineReducers({
   product: ProductReducer,
+  filter: FilterReducer,
 });
 
 export type RootState = ReturnType<typeof reducers>;
