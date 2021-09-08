@@ -21,13 +21,13 @@ export const BOTTOM_TABS_STATUS_BAR_STYLE: Record<
 };
 
 function Home() {
-  return <> </>;
+  return null;
 }
 function Favorite() {
-  return <> </>;
+  return null;
 }
 function Profile() {
-  return <> </>;
+  return null;
 }
 export function Tabbar() {
   return (

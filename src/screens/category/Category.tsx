@@ -8,7 +8,7 @@ interface Props {}
 export function Category({}: Props) {
   return (
     <View style={styles.container}>
-      <Header title="Clothing" />
+      <Header title="Clothing" hideBack={true}/>
       <CategoryHOC />
       <ProductListHOC />
     </View>

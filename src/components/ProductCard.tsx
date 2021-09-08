@@ -1,5 +1,8 @@
+import {useNavigation} from '@react-navigation/native';
 import {PRODUCT} from '@src/hooks/useProducts';
 import {useStyle} from '@src/hooks/useStyle';
+import {routeNames} from '@src/navigation/routeNames';
+import {NavigationT} from '@src/navigation/types';
 import {addToFavorite} from '@src/slices';
 import {productFavorive, removeFromFavorite} from '@src/slices/product.slice';
 import {colors} from '@src/theme';
@@ -18,6 +21,7 @@ interface Props {
 }
 export const ProductCard = ({data}: Props) => {
   const {image, title, price, id} = data;
+  const {navigate} = useNavigation<NavigationT>();
 
   const favorite = useSelector(productFavorive);
 
@@ -48,7 +52,11 @@ export const ProductCard = ({data}: Props) => {
     }
   }
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        navigate(routeNames.productDetails, {data});
+      }}>
       <View style={styles.imageContainer}>
         <Image
           source={{uri: image}}
@@ -70,7 +78,7 @@ export const ProductCard = ({data}: Props) => {
         {title}
       </Text>
       <Text style={styles.price}>${price}</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

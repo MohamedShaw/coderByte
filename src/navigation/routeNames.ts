@@ -3,5 +3,6 @@ export const routeNames = {
   category: 'stack/category',
   favorite: 'stack/favorite',
   profile: 'stack/prrofile',
-  tabbar: 'stack/tabbar'
+  tabbar: 'stack/tabbar',
+  productDetails: 'stack/productDetails'
 } as const;
