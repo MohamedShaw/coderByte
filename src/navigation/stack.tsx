@@ -7,6 +7,7 @@ import {createNativeStackNavigator} from 'react-native-screens/native-stack';
 import * as Screens from '@src/screens';
 import {routeNames} from './routeNames';
 import {Screen, screens} from './types';
+import {Tabbar} from './Tabbar';
 
 const appStack = createNativeStackNavigator();
 
@@ -17,9 +18,10 @@ export function Stack() {
         screenOptions={{
           direction: 'ltr',
           headerShown: false,
-          statusBarStyle: 'dark',
+          statusBarStyle: 'light',
         }}
-        initialRouteName={routeNames.home}>
+        initialRouteName={routeNames.tabbar}>
+        <appStack.Screen component={Tabbar} name={routeNames.tabbar}  />
         {screens.map((screen: Screen) => (
           <appStack.Screen
             key={screen.name}

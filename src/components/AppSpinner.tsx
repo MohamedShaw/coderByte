@@ -1,13 +1,13 @@
-import * as React from 'react'
-import {ActivityIndicator, ActivityIndicatorProps} from 'react-native'
-
-import {colors} from '@src/theme'
+import * as React from 'react';
+import {ActivityIndicator, ActivityIndicatorProps} from 'react-native';
 
 interface Props extends ActivityIndicatorProps {
-  active?: boolean
+  active?: boolean;
 }
 
-export function AppSpinner({color = '#FDE460', active = true}: Props) {
-  if (!active) return null
-  return <ActivityIndicator color={color} size={35}/>
+export function AppSpinner({color = '#4B385B', active = true}: Props) {
+  if (!active) {
+    return null;
+  }
+  return <ActivityIndicator color={color} size={25} />;
 }
